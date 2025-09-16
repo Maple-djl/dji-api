@@ -1,0 +1,112 @@
+# 开发环境配置
+server:
+  port: 6789
+
+spring:
+  # 开发环境懒加载配置
+  # main:
+  #   lazy-initialization: true
+  # 开发环境数据库配置
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 开发环境数据库配置
+      url: jdbc:mysql://192.168.31.69:3306/dji_cloud?useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: F7MFCCd3ZiNP5xAy
+      initial-size: 5
+      min-idle: 5
+      max-active: 10
+      max-wait: 60000
+
+  # 开发环境Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    username: # if you enable
+    password:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+# 开发环境MQTT配置
+mqtt:
+  # @see com.dji.sample.component.mqtt.model.MqttUseEnum
+  # BASIC parameters are required.
+  BASIC:
+    protocol: MQTT # @see com.dji.sample.component.mqtt.model.MqttProtocolEnum
+    host: 47.122.22.131  # 开发环境使用本地MQTT服务器
+    port: 1883
+    username: JavaServer
+    password: 123456
+    client-id: 123456
+    # If the protocol is ws/wss, this value is required.
+    path:
+  DRC:
+    protocol: WS # @see com.dji.sample.component.mqtt.model.MqttProtocolEnum
+    host: localhost  # 开发环境使用本地MQTT服务器
+    port: 8083
+    path: /mqtt
+    username: JavaServer
+    password: 123456
+
+# 开发环境日志配置
+logging:
+  level:
+    com.dji: debug
+    org.springframework: debug
+    root: info
+  file:
+    name: logs/cloud-api-sample-dev.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 开发环境OSS配置 - 通常禁用
+oss:
+  enable: false
+  provider: ALIYUN
+  endpoint: https://oss-cn-hangzhou.aliyuncs.com
+  access-key: dev-access-key
+  secret-key: dev-secret-key
+  expire: 3600
+  region: cn-hangzhou
+  role-session-name: cloudApi-dev
+  role-arn: acs:ram::123456789:role/stsrole-dev
+  bucket: dev-cloudapi-bucket
+  object-dir-prefix: dev-wayline
+
+# 开发环境直播流配置
+livestream:
+  url:
+    # It is recommended to use a program to create Token. https://github.com/AgoraIO/Tools/blob/master/DynamicKey/AgoraDynamicKey/java/src/main/java/io/agora/media/RtcTokenBuilder2.java
+    agora:
+      channel: dev-channel  # 开发环境频道
+      token: dev-token  # 开发环境临时token
+      uid: 654321
+
+    # RTMP  Note: This IP is the address of the streaming server. If you want to see livestream on web page, you need to convert the RTMP stream to WebRTC stream.
+    rtmp:
+      url: rtmp://192.168.31.69/live/  # 开发环境RTMP地址
+
+    rtsp:
+      username: dev-user  # 开发环境用户名
+      password: dev-pass  # 开发环境密码
+      port: 8554
+
+    # GB28181 Note:If you don't know what these parameters mean, you can go to Pilot2 and select the GB28181 page in the cloud platform. Where the parameters same as these parameters.
+    gb28181:
+      serverIP: 192.168.31.69  # 开发环境服务器IP
+      serverPort: 5060  # 开发环境服务器端口
+      serverID: 34020000002000000001  # 开发环境服务器ID
+      agentID: 34020000001320000001  # 开发环境代理ID
+      agentPassword: dev-gb28181-pass  # 开发环境代理密码
+      localPort: 5060  # 开发环境本地端口
+      channel: 34020000001320000001  # 开发环境频道
+
+    # Webrtc: Only supports using whip standard
+    whip:
+      url: http://192.168.31.69:1985/rtc/v1/whip/?app=live&stream=  # 开发环境WHIP地址
