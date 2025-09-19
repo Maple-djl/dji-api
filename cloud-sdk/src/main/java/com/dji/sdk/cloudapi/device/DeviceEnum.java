@@ -25,6 +25,7 @@ public enum DeviceEnum {
 
     M3E(DeviceDomainEnum.DRONE, DeviceTypeEnum.M3E, DeviceSubTypeEnum.ZERO),
 
+
     M3T(DeviceDomainEnum.DRONE, DeviceTypeEnum.M3E, DeviceSubTypeEnum.ONE),
 
     M3M(DeviceDomainEnum.DRONE, DeviceTypeEnum.M3E, DeviceSubTypeEnum.TWO),
@@ -63,6 +64,7 @@ public enum DeviceEnum {
 
     RC_PLUS(DeviceDomainEnum.REMOTER_CONTROL, DeviceTypeEnum.RC_PLUS, DeviceSubTypeEnum.ZERO),
 
+
     RC_PRO(DeviceDomainEnum.REMOTER_CONTROL, DeviceTypeEnum.RC_PRO, DeviceSubTypeEnum.ZERO),
 
     DOCK(DeviceDomainEnum.DOCK, DeviceTypeEnum.DOCK, DeviceSubTypeEnum.ZERO),
@@ -76,6 +78,10 @@ public enum DeviceEnum {
     M3D_CAMERA(DeviceDomainEnum.PAYLOAD, DeviceTypeEnum.M3D_CAMERA, DeviceSubTypeEnum.ZERO),
 
     M3TD_CAMERA(DeviceDomainEnum.PAYLOAD, DeviceTypeEnum.M3TD_CAMERA, DeviceSubTypeEnum.ZERO),
+
+    Matrice_4E(DeviceDomainEnum.DRONE, DeviceTypeEnum.Matrice_4E, DeviceSubTypeEnum.ZERO),
+    DJI_RC_PLUS_2(DeviceDomainEnum.REMOTER_CONTROL, DeviceTypeEnum.DJI_RzC_PLUS_2, DeviceSubTypeEnum.ZERO),
+    DJI_Matrice_4E_Camera(DeviceDomainEnum.PAYLOAD, DeviceTypeEnum.DJI_Matrice_4E_Camera, DeviceSubTypeEnum.ZERO),
     ;
 
     @Schema(enumAsRef = true)
@@ -116,7 +122,7 @@ public enum DeviceEnum {
 
     public static DeviceEnum find(int domain, int type, int subType) {
         return Arrays.stream(values()).filter(device -> device.domain.getDomain() == domain &&
-                device.type.getType() == type && device.subType.getSubType() == subType)
+                        device.type.getType() == type && device.subType.getSubType() == subType)
                 .findAny().orElseThrow(() -> new CloudSDKException(DeviceEnum.class,
                         String.format("%s-%s-%s", domain, type, subType)));
     }

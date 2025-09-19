@@ -16,12 +16,16 @@ import java.util.Arrays;
 @Schema(description = "device domain", enumAsRef = true)
 public enum DeviceDomainEnum {
 
+    //无人机
     DRONE(0),
 
+    //负载
     PAYLOAD(1),
 
+    //遥控器
     REMOTER_CONTROL(2),
 
+    //机场
     DOCK (3),
 
     ;

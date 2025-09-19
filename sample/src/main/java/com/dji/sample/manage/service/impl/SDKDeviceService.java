@@ -225,6 +225,7 @@ public class SDKDeviceService extends AbstractDeviceService {
         }
 
         deviceRedisService.setDeviceOnline(device);
+        deviceRedisService.setDeviceOsd(from, request.getData());
 
         OsdRcDrone data = request.getData();
         deviceService.pushOsdDataToPilot(device.getWorkspaceId(), from,

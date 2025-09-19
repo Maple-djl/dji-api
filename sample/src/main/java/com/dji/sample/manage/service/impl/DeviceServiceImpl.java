@@ -610,8 +610,20 @@ public class DeviceServiceImpl implements IDeviceService {
 
     @Override
     public DroneModeCodeEnum getDeviceMode(String deviceSn) {
-        return deviceRedisService.getDeviceOsd(deviceSn, OsdDockDrone.class)
-                .map(OsdDockDrone::getModeCode).orElse(DroneModeCodeEnum.DISCONNECTED);
+        // 首先尝试获取 Dock 设备的 OSD 数据
+        Optional<OsdDockDrone> dockOsdOpt = deviceRedisService.getDeviceOsd(deviceSn, OsdDockDrone.class);
+        if (dockOsdOpt.isPresent()) {
+            return dockOsdOpt.get().getModeCode();
+        }
+        
+        // 如果 Dock OSD 不存在，尝试获取 RC 设备的 OSD 数据
+        Optional<OsdRcDrone> rcOsdOpt = deviceRedisService.getDeviceOsd(deviceSn, OsdRcDrone.class);
+        if (rcOsdOpt.isPresent()) {
+            return rcOsdOpt.get().getModeCode();
+        }
+        
+        // 如果都没有找到，返回断开连接状态
+        return DroneModeCodeEnum.DISCONNECTED;
     }
 
     @Override
@@ -664,7 +676,7 @@ public class DeviceServiceImpl implements IDeviceService {
                 .deviceName(dto.getDeviceName())
                 .version(dto.getThingVersion())
                 .userId(dto.getUserId())
-                .nickname(dto.getNickname())
+                .nickname(Optional.ofNullable(dto.getNickname()).orElse(dto.getDeviceSn()))
                 .workspaceId(dto.getWorkspaceId())
                 .boundStatus(dto.getBoundStatus())
                 .domain(Optional.ofNullable(dto.getDomain()).map(DeviceDomainEnum::getDomain).orElse(null))

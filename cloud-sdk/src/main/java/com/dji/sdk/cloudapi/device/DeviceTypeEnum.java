@@ -23,6 +23,7 @@ public enum DeviceTypeEnum {
 
     M3E(77),
 
+
     Z30(20),
 
     XT2(26),
@@ -55,6 +56,7 @@ public enum DeviceTypeEnum {
 
     RC_PLUS(119),
 
+
     RC_PRO(144),
 
     DOCK(1),
@@ -66,7 +68,10 @@ public enum DeviceTypeEnum {
     M3D_CAMERA(80),
 
     M3TD_CAMERA(81),
-    ;
+
+    DJI_RzC_PLUS_2(174),
+    Matrice_4E(99),
+    DJI_Matrice_4E_Camera(88);
 
     private final int type;
 

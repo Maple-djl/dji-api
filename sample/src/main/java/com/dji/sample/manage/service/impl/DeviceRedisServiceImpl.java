@@ -38,7 +38,8 @@ public class DeviceRedisServiceImpl implements IDeviceRedisService {
 
     @Override
     public void setDeviceOnline(DeviceDTO device) {
-        RedisOpsUtils.setWithExpire(RedisConst.DEVICE_ONLINE_PREFIX + device.getDeviceSn(), device, RedisConst.DEVICE_ALIVE_SECOND);
+        RedisOpsUtils.setWithExpire(RedisConst.
+                DEVICE_ONLINE_PREFIX + device.getDeviceSn(), device, RedisConst.DEVICE_ALIVE_SECOND);
     }
 
     @Override

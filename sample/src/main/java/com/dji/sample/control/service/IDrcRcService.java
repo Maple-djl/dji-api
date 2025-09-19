@@ -3,19 +3,19 @@ package com.dji.sample.control.service;
 import com.dji.sample.control.model.dto.JwtAclDTO;
 import com.dji.sample.control.model.param.DrcConnectParam;
 import com.dji.sample.control.model.param.DrcModeParam;
+import com.dji.sample.control.model.param.DrcModeParamRc;
 import com.dji.sdk.cloudapi.control.DrcModeMqttBroker;
-
-import javax.validation.Valid;
 
 /**
  * @author sean
  * @version 1.3
  * @date 2023/1/11
  */
-public interface IDrcService {
+public interface IDrcRcService {
 
     /**
      * Save the drc mode of dock in redis.
+     *
      * @param dockSn
      * @param clientId
      */
@@ -23,6 +23,7 @@ public interface IDrcService {
 
     /**
      * Query the client that is controlling the dock.
+     *
      * @param dockSn
      * @return clientId
      */
@@ -30,6 +31,7 @@ public interface IDrcService {
 
     /**
      * Delete the drc mode of dock in redis.
+     *
      * @param dockSn
      * @return
      */
@@ -37,6 +39,7 @@ public interface IDrcService {
 
     /**
      * Provide mqtt options for the control terminal.
+     *
      * @param workspaceId
      * @param userId
      * @param username
@@ -47,17 +50,21 @@ public interface IDrcService {
 
     /**
      * Make the dock enter drc mode. And grant relevant permissions.
+     *
      * @param workspaceId
      * @param param
      * @return
      */
     JwtAclDTO deviceDrcEnter(String workspaceId, DrcModeParam param);
 
+
+    JwtAclDTO deviceDrcCloudControlAuth(String workspaceId, DrcModeParamRc param);
+
     /**
      * Make the dock exit drc mode.
+     *
      * @param workspaceId
      * @param param
      */
     void deviceDrcExit(String workspaceId, DrcModeParam param);
-
 }

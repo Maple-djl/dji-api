@@ -37,12 +37,15 @@ public class DrcController {
         return HttpResultResponse.success(brokerDTO);
     }
 
-    @PostMapping("/workspaces/{workspace_id}/drc/enter")
-    public HttpResultResponse drcEnter(@PathVariable("workspace_id") String workspaceId, @Valid @RequestBody DrcModeParam param) {
-        JwtAclDTO acl = drcService.deviceDrcEnter(workspaceId, param);
 
+    @PostMapping("/workspaces/{workspace_id}/drc/enter")
+    public HttpResultResponse drcEnter(@PathVariable("workspace_id") String workspaceId,
+                                       @Valid @RequestBody DrcModeParam param) {
+        JwtAclDTO acl = drcService.deviceDrcEnter(workspaceId, param);
         return HttpResultResponse.success(acl);
     }
+
+
 
     @PostMapping("/workspaces/{workspace_id}/drc/exit")
     public HttpResultResponse drcExit(@PathVariable("workspace_id") String workspaceId, @Valid @RequestBody DrcModeParam param) {

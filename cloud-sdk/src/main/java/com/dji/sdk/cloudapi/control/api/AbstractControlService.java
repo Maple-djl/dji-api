@@ -117,7 +117,7 @@ public abstract class AbstractControlService {
      * @param request   data
      * @return  services_reply
      */
-    @CloudSDKVersion(exclude = GatewayTypeEnum.RC)
+    //@CloudSDKVersion(exclude = GatewayTypeEnum.RC)
     public TopicServicesResponse<ServicesReplyData> drcModeEnter(GatewayManager gateway, DrcModeEnterRequest request) {
         return servicesPublish.publish(
                 gateway.getGatewaySn(),
@@ -125,12 +125,21 @@ public abstract class AbstractControlService {
                 request);
     }
 
+    public TopicServicesResponse<ServicesReplyData> drcCloudControlAuthRequest(GatewayManager gateway,
+                                                                               DrcCloudControlAuthRequestRequest request) {
+        return servicesPublish.publish(
+                gateway.getGatewaySn(),
+                ControlMethodEnum.CLOUD_CONTROL_AUTH_REQUEST.getMethod(),
+                request);
+    }
+
+
     /**
      * Exit the live flight controls mode
      * @param gateway
      * @return  services_reply
      */
-    @CloudSDKVersion(exclude = GatewayTypeEnum.RC)
+    //@CloudSDKVersion(exclude = GatewayTypeEnum.RC)
     public TopicServicesResponse<ServicesReplyData> drcModeExit(GatewayManager gateway) {
         return servicesPublish.publish(
                 gateway.getGatewaySn(),

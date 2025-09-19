@@ -12,7 +12,8 @@ import java.util.Arrays;
  */
 public enum GatewayTypeEnum {
 
-    RC(DeviceEnum.RC, DeviceEnum.RC_PLUS, DeviceEnum.RC_PRO),
+    // RC系列
+    RC(DeviceEnum.RC, DeviceEnum.RC_PLUS,DeviceEnum.DJI_RC_PLUS_2,DeviceEnum.RC_PRO),
 
     DOCK(DeviceEnum.DOCK),
 

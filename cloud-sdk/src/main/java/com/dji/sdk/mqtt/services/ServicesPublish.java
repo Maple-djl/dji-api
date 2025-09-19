@@ -47,6 +47,7 @@ public class ServicesPublish {
     }
 
     public TopicServicesResponse<ServicesReplyData> publish(String sn, String method, Object data) {
+
         return this.publish(sn, method, data, null);
     }
 
@@ -98,10 +99,20 @@ public class ServicesPublish {
         // put together in "output"
         ObjectMapper mapper = Common.getObjectMapper();
         if (Objects.nonNull(replyReceiver.getInfo())) {
-            reply.setOutput(mapper.convertValue(replyReceiver.getInfo(), clazz));
+            try {
+                reply.setOutput(mapper.convertValue(replyReceiver.getInfo(), clazz));
+            } catch (IllegalArgumentException e) {
+                // If conversion fails, use the original object
+                reply.setOutput((T) replyReceiver.getInfo());
+            }
         }
         if (Objects.nonNull(replyReceiver.getOutput())) {
-            reply.setOutput(mapper.convertValue(replyReceiver.getOutput(), clazz));
+            try {
+                reply.setOutput(mapper.convertValue(replyReceiver.getOutput(), clazz));
+            } catch (IllegalArgumentException e) {
+                // If conversion fails, use the original object
+                reply.setOutput((T) replyReceiver.getOutput());
+            }
         }
         return response.setData(reply);
     }

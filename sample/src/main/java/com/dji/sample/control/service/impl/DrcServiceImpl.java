@@ -65,10 +65,10 @@ public class DrcServiceImpl implements IDrcService {
 
     @Autowired
     private IDeviceService deviceService;
-    
+
     @Autowired
     private ObjectMapper mapper;
-    
+
     @Autowired
     private IWebSocketMessageService webSocketMessageService;
 
@@ -133,7 +133,8 @@ public class DrcServiceImpl implements IDrcService {
         DockModeCodeEnum dockMode = deviceService.getDockMode(dockSn);
         Optional<DeviceDTO> dockOpt = deviceRedisService.getDeviceOnline(dockSn);
         if (dockOpt.isPresent() && (DockModeCodeEnum.IDLE == dockMode || DockModeCodeEnum.WORKING == dockMode)) {
-            Optional<OsdDockDrone> deviceOsd = deviceRedisService.getDeviceOsd(dockOpt.get().getChildDeviceSn(), OsdDockDrone.class);
+            Optional<OsdDockDrone> deviceOsd =
+                    deviceRedisService.getDeviceOsd(dockOpt.get().getChildDeviceSn(), OsdDockDrone.class);
             if (deviceOsd.isEmpty() || deviceOsd.get().getElevation() <= 0) {
                 throw new RuntimeException("The drone is not in the sky and cannot enter command flight mode.");
             }
@@ -166,12 +167,14 @@ public class DrcServiceImpl implements IDrcService {
         TopicServicesResponse<ServicesReplyData> reply = abstractControlService.drcModeEnter(
                 SDKManager.getDeviceSDK(param.getDockSn()),
                 new DrcModeEnterRequest()
-                        .setMqttBroker(MqttPropertyConfiguration.getMqttBrokerWithDrc(param.getDockSn() + "-" + System.currentTimeMillis(), param.getDockSn(),
+                        .setMqttBroker(MqttPropertyConfiguration.getMqttBrokerWithDrc(
+                                param.getDockSn() + "-" + System.currentTimeMillis(), param.getDockSn(),
                                 RedisConst.DRC_MODE_ALIVE_SECOND.longValue(),
                                 Map.of(MapKeyConst.ACL, objectMapper.convertValue(JwtAclDTO.builder()
                                         .pub(List.of(subTopic))
                                         .sub(List.of(pubTopic))
-                                        .build(), new TypeReference<Map<String, ?>>() {}))))
+                                        .build(), new TypeReference<Map<String, ?>>() {
+                                }))))
                         .setHsiFrequency(1).setOsdFrequency(10));
 
         if (!reply.getData().getResult().isSuccess()) {
@@ -203,12 +206,14 @@ public class DrcServiceImpl implements IDrcService {
                 abstractControlService.drcModeExit(SDKManager.getDeviceSDK(param.getDockSn()));
         if (!reply.getData().getResult().isSuccess()) {
             throw new RuntimeException("SN: " + param.getDockSn() + "; Error:" +
-                    reply.getData().getResult() + "; Failed to exit command flight control mode, please try again later!");
+                    reply.getData().getResult() +
+                    "; Failed to exit command flight control mode, please try again later!");
         }
 
         String jobId = waylineRedisService.getPausedWaylineJobId(param.getDockSn());
         if (StringUtils.hasText(jobId)) {
-            flighttaskService.updateJobStatus(workspaceId, jobId, UpdateJobParam.builder().status(WaylineTaskStatusEnum.RESUME).build());
+            flighttaskService.updateJobStatus(workspaceId, jobId,
+                    UpdateJobParam.builder().status(WaylineTaskStatusEnum.RESUME).build());
         }
 
         this.delDrcModeInRedis(param.getDockSn());

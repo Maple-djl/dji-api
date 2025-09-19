@@ -15,6 +15,11 @@ public enum ControlMethodEnum {
 
     DRC_MODE_EXIT("drc_mode_exit"),
 
+    //todo
+    CLOUD_CONTROL_AUTH_REQUEST("cloud_control_auth_request"),
+    DRC_INITIAL_STATE_SUBSCRIBE("drc_initial_state_subscribe"),
+    //todo
+
     FLY_TO_POINT("fly_to_point"),
 
     FLY_TO_POINT_STOP("fly_to_point_stop"),

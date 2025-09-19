@@ -39,7 +39,7 @@ mqtt:
   # BASIC parameters are required.
   BASIC:
     protocol: MQTT # @see com.dji.sample.component.mqtt.model.MqttProtocolEnum
-    host: 47.122.22.131  # 开发环境使用本地MQTT服务器
+    host: 192.168.31.223  # 开发环境使用本地MQTT服务器
     port: 1883
     username: JavaServer
     password: 123456
@@ -48,7 +48,7 @@ mqtt:
     path:
   DRC:
     protocol: WS # @see com.dji.sample.component.mqtt.model.MqttProtocolEnum
-    host: localhost  # 开发环境使用本地MQTT服务器
+    host: 192.168.31.223  # 开发环境使用本地MQTT服务器
     port: 8083
     path: /mqtt
     username: JavaServer
@@ -90,7 +90,7 @@ livestream:
 
     # RTMP  Note: This IP is the address of the streaming server. If you want to see livestream on web page, you need to convert the RTMP stream to WebRTC stream.
     rtmp:
-      url: rtmp://192.168.31.69/live/  # 开发环境RTMP地址
+      url:  tmp://192.168.31.69:1935/live/  # 开发环境RTMP地址
 
     rtsp:
       username: dev-user  # 开发环境用户名
@@ -109,4 +109,4 @@ livestream:
 
     # Webrtc: Only supports using whip standard
     whip:
-      url: http://192.168.31.69:1985/rtc/v1/whip/?app=live&stream=  # 开发环境WHIP地址
+      url:  http://192.168.31.69:1985/rtc/v1/whip/?app=live&stream=  # 开发环境WHIP地址
