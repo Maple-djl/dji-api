@@ -1,20 +1,20 @@
 # 开发环境配置
 server:
-  port: 6789
+  port: 8042
 
 spring:
   # 开发环境懒加载配置
   # main:
   #   lazy-initialization: true
-  # 开发环境数据库配置
+  # 开发环境数据库配置 - 修改为与DJI admin相同的PostgreSQL数据库
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      # 开发环境数据库配置
-      url: jdbc:mysql://192.168.31.69:3306/dji_cloud?useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: F7MFCCd3ZiNP5xAy
+      driver-class-name: org.postgresql.Driver
+      # 连接到与DJI admin相同的PostgreSQL数据库
+      url: jdbc:postgresql://192.168.31.69:5432/dji_cloudd?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
+      username: postgres
+      password: dgxx@2025
       initial-size: 5
       min-idle: 5
       max-active: 10

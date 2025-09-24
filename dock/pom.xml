@@ -9,11 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sample</artifactId>
+    <artifactId>dock</artifactId>
     <version>${revision}</version>
 
     <properties>
-        <mysql.version>8.0.31</mysql.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <druid.version>1.2.6</druid.version>
         <jwt.version>3.12.1</jwt.version>
@@ -37,10 +36,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- 替换为PostgreSQL驱动以连接与DJI admin相同的数据库 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

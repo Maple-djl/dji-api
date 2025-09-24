@@ -10,10 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @ComponentScan("com.dji")
-public class CloudApiSampleApplication {
+public class DockCloudApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CloudApiSampleApplication.class, args);
+		SpringApplication.run(DockCloudApplication.class, args);
 	}
 
 }
